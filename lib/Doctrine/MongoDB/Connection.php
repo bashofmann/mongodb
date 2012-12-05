@@ -74,7 +74,7 @@ class Connection
      */
     public function __construct($server = null, array $options = array(), Configuration $config = null, EventManager $evm = null)
     {
-        if ($server instanceof \Mongo) {
+        if ($server instanceof \MongoClient) {
             $this->mongo = $server;
         } elseif ($server !== null) {
             $this->server = $server;
@@ -95,7 +95,7 @@ class Connection
             $server  = $this->server;
             $options = $this->options;
             $this->mongo = $this->retry(function() use($server, $options) {
-                return new \Mongo($server ?: 'mongodb://localhost:27017', $options);
+                return new \MongoClient($server ?: 'mongodb://localhost:27017', $options);
             });
 
             if ($this->eventManager->hasListeners(Events::postConnect)) {
@@ -131,7 +131,7 @@ class Connection
      */
     public function isConnected()
     {
-        return $this->mongo !== null && $this->mongo instanceof \Mongo && $this->mongo->connected;
+        return $this->mongo !== null && $this->mongo instanceof \MongoClient && $this->mongo->connected;
     }
 
     /**
@@ -147,9 +147,9 @@ class Connection
     /**
      * Set the PHP Mongo instance to wrap.
      *
-     * @param Mongo $mongo The PHP Mongo instance
+     * @param \MongoClient $mongo The PHP Mongo instance
      */
-    public function setMongo(\Mongo $mongo)
+    public function setMongo(\MongoClient $mongo)
     {
         $this->mongo = $mongo;
     }
@@ -157,7 +157,7 @@ class Connection
     /**
      * Returns the PHP Mongo instance being wrapped.
      *
-     * @return Mongo
+     * @return \MongoClient
      */
     public function getMongo()
     {

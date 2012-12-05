@@ -74,7 +74,6 @@ class Builder
         'hints' => array(),
         'immortal' => false,
         'snapshot' => false,
-        'slaveOkay' => false,
         'eagerCursor' => false,
         'mapReduce' => array(
             'map' => null,
@@ -126,18 +125,6 @@ class Builder
     public function getType()
     {
         return $this->query['type'];
-    }
-
-    /**
-     * Set slave okaye.
-     *
-     * @param bool $bool
-     * @return Builder
-     */
-    public function slaveOkay($bool = true)
-    {
-        $this->query['slaveOkay'] = $bool;
-        return $this;
     }
 
     /**

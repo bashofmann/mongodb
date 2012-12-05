@@ -236,7 +236,6 @@ class Query implements IteratorAggregate
         $cursor->skip($this->query['skip']);
         $cursor->sort($this->query['sort']);
         $cursor->immortal($this->query['immortal']);
-        $cursor->slaveOkay($this->query['slaveOkay']);
         if ($this->query['snapshot']) {
             $cursor->snapshot();
         }

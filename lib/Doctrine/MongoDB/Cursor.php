@@ -48,7 +48,6 @@ class Cursor implements Iterator
     protected $batchSize;
     protected $limit;
     protected $skip;
-    protected $slaveOkay = false;
     protected $snapshot;
     protected $sorts = array();
     protected $tailable = false;
@@ -113,7 +112,6 @@ class Cursor implements Iterator
         if ($this->skip !== null) {
             $this->mongoCursor->skip($this->skip);
         }
-        $this->mongoCursor->slaveOkay($this->slaveOkay);
         if ($this->snapshot) {
             $this->mongoCursor->snapshot();
         }
@@ -267,13 +265,6 @@ class Cursor implements Iterator
     {
         $this->skip = $num;
         $this->mongoCursor->skip($num);
-        return $this;
-    }
-
-    public function slaveOkay($okay = true)
-    {
-        $this->slaveOkay = $okay;
-        $this->mongoCursor->slaveOkay($okay);
         return $this;
     }
 
